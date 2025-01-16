@@ -1,0 +1,7 @@
+{
+  "name": "AndroidUrban",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
