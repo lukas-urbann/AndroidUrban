@@ -1,10 +1,16 @@
 Povinné požadavky:
 
 zdrojové kódy přístupné v nějakém verzovacím systému (GIT) (OK)
-vlastní ikona aplikace, vlastní splashscreen 
-více propojených obrazovek, funkční navigační stack (přechody mezi obrazovkami)
-ukládání dat do perzistentní paměti zařízení
-vstup od uživatele (zadávání dat uživatelem)
+vlastní ikona aplikace, vlastní splashscreen  (asi ?? OK)
+více propojených obrazovek, funkční navigační stack (přechody mezi obrazovkami) (jakoby OK)
+ukládání dat do perzistentní paměti zařízení 
+vstup od uživatele (zadávání dat uživatelem) 
+
+
+
+
+
+
 Pro zisk lepšího hodnocení než E-D doporučuji implementaci:
 
 komunikace s libovolným REST API či nějakého nativního plug-inu typu GPS, kamera, kalendář, kontakty...)
