@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1 - testik
+      Existující Recepty
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,14 +9,33 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Uložení dat</ion-title>
+      <ion-title size="large">Existující</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-item>
-    <ion-label position="stacked">Zadejte text k uložení</ion-label>
-    <ion-input [(ngModel)]="dataToSave" placeholder="Vložte text..."></ion-input>
-  </ion-item>
+  <ion-searchbar
+    show-clear-button="focus" 
+    show-cancel-button="focus"
+    [(ngModel)]="searchTerm" 
+    (ionInput)="filterRecipes()" 
+    [debounce]="200"
+    color="light"
+    placeholder="Vyhledat Recepty">
+  </ion-searchbar>
 
-  <ion-button expand="full" (click)="saveData()">Uložit data</ion-button>
+  <div class="c-separator"></div>
+
+  <ion-list style="background-color: transparent; padding-top: 0px;">
+    <ion-card *ngFor="let recipe of filteredRecipes" [routerLink]="['/recipe-details', recipe.id]">
+      <ion-card-header>
+        <ion-card-title>{{ recipe.name }}</ion-card-title>
+        <ion-card-subtitle>{{ recipe.description }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </ion-list>
+
+  <ion-text *ngIf="filteredRecipes.length === 0">
+    <p class="c-label">Žádné recepty nenalezeny.</p>
+  </ion-text>
+
 </ion-content>

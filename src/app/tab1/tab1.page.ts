@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
+import { RecipeService } from '../services/recipe.service';
+import { Recipe } from '../models/recipe.model';
 
 @Component({
   selector: 'app-tab1',
@@ -8,21 +9,33 @@ import { Storage } from '@ionic/storage-angular';
   standalone: false,
 })
 export class Tab1Page {
-  dataToSave: string = '';
+  recipes: Recipe[] = [];
+  filteredRecipes: Recipe[] = [];
+  searchTerm: string = '';
 
-  constructor(private storage: Storage) {}
+  constructor(private recipeService: RecipeService) {}
 
-  async ionViewWillEnter() {
-    await this.storage.create(); //tuhle se inicializuje storage
+  ionViewWillEnter() {
+    this.recipes = this.recipeService.getRecipes();
+    this.filteredRecipes = [...this.recipes];
   }
 
-  async saveData() {
-    if (this.dataToSave) {
-      await this.storage.set('myData', this.dataToSave);
-      alert('Data byla uložena!');
-      this.dataToSave = '';
+  filterRecipes() {
+    const term = this.searchTerm.toLowerCase().trim();
+    if (term === '') {
+      this.filteredRecipes = [...this.recipes];
     } else {
-      alert('Prosím, zadejte nějaká data.');
+      this.filteredRecipes = this.recipes.filter(recipe =>
+        recipe.name.toLowerCase().includes(term) ||
+        recipe.description.toLowerCase().includes(term) || 
+        recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(term))
+      );
     }
   }
+
+  /*
+  openRecipeDetail(recipe: Recipe) {
+    console.log(recipe);
+  }
+  */
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RecipeService } from '../services/recipe.service';
+import { Recipe } from '../models/recipe.model';
 
 @Component({
   selector: 'app-tab3',
@@ -7,7 +9,37 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class Tab3Page {
+  name = '';
+  description = '';
+  ingredients = '';
+  steps = '';
 
-  constructor() {}
+  constructor(private recipeService: RecipeService) {}
+  
+  addRecipe() {
+    if (this.name && this.description) {
+      const newRecipe: Recipe = {
+        id: Date.now().toString(), // Generování unikátního ID
+        name: this.name,
+        description: this.description,
+        ingredients: this.ingredients.split(','),
+        steps: this.steps.split(','),
+      };
+
+      this.recipeService.addRecipe(newRecipe);
+      alert('Recept přidán!');
+      this.name = '';
+      this.description = '';
+      this.ingredients = '';
+      this.steps = '';
+    } else {
+      alert('Vyplňte všechny potřebné údaje.');
+    }
+  }
+
+  async trySaveRecipe()
+  {
+
+  }
 
 }

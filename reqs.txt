@@ -8,14 +8,4 @@ vstup od uživatele (zadávání dat uživatelem) (OK)
 
 
 
-
-
-
-Pro zisk lepšího hodnocení než E-D doporučuji implementaci:
-
 komunikace s libovolným REST API či nějakého nativního plug-inu typu GPS, kamera, kalendář, kontakty...)
-Lze zvolit libovolnou platformu (Android, iOS), programovací jazyk či vývojový framework.
-
-Lze si zvolit libovolné téma aplikace, studenti v minulosti prezentovali např. aplikaci zobrazující seznam kryptoměn a jejich aktuální kurzy s možností vložit do oblíbených, filtrovat, vyhledávat, nebo např. vyhledávání v databázi filmů či seriálů, předpověď počasí apod.
-
-Prezentace projektu proběhne osobně ve zkouškovém období na vypsaných termínech. Není nutné připravovat oficiální prezentaci, jde o předvedení funkčnosti a stručný popis toho, co aplikace řeší a jak. Je třeba mít připraveny zdrojové kódy a být schopen odpovědět na dotazy týkající se implementace aplikace, čímž se jasně prokáže autorství.

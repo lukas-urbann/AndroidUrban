@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Detail Receptu</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="recipe">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ recipe.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Popis:</strong> {{ recipe.description }}</p>
+
+      <div class="c-separator"></div>
+
+      <p><strong>Ingredience:</strong></p>
+      <ul>
+        <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
+      </ul>
+      <p><strong>Kroky přípravy:</strong></p>
+      <ol>
+        <li *ngFor="let step of recipe.steps">{{ step }}</li>
+      </ol>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" color="primary" (click)="editRecipe()">Upravit recept</ion-button>
+  <ion-button expand="full" color="danger" (click)="deleteRecipe()">Odstranit recept</ion-button>
+
+</ion-content>
