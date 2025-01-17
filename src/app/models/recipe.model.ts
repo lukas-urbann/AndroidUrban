@@ -5,4 +5,6 @@ export interface Recipe {
     ingredients: string[];
     steps: string[];
     isFavorite: boolean;
+    createdAt: number;
+    tags: string[]; 
   }

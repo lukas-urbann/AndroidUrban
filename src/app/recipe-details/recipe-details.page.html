@@ -16,6 +16,7 @@
     </div>
     <ion-card-header>
       <ion-card-title style="width: 73%;">{{ recipe.name }}</ion-card-title>
+      <ion-card-subtitle style="font-size: 10.5px;">Vytvořeno: {{ recipe.createdAt | date: 'd.MM.yyyy, HH:mm' }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <p><strong>Popis:</strong> {{ recipe.description }}</p>

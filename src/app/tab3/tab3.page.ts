@@ -29,6 +29,7 @@ export class Tab3Page {
         ingredients: this.ingredients.split(','),
         steps: this.steps.split(','),
         isFavorite: false,
+        createdAt: Date.now(),
       };
 
       this.recipeService.addRecipe(newRecipe);

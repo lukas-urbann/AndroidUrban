@@ -42,10 +42,10 @@ export class Tab1Page {
 
     //jen porovnávání s oblíbenými recepty
     this.filteredRecipes = filtered.sort((a, b) => {
-      if (a.isFavorite === b.isFavorite) {
-        return 0;
+      if (a.isFavorite !== b.isFavorite) {
+        return a.isFavorite ? -1 : 1; // Oblíbené recepty nahoře
       }
-      return a.isFavorite ? -1 : 1;
+      return b.createdAt - a.createdAt; // Nejnovější recepty nahoře
     });
   }
 

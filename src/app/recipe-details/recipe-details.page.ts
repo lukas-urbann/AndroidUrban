@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
@@ -11,7 +11,7 @@ import { Recipe } from '../models/recipe.model';
   styleUrls: ['./recipe-details.page.scss'],
   //Tenhle bs tu je potřeba, jinak se to nezapne kvůli ionic generate page
   standalone: true,
-  imports: [CommonModule, IonicModule]
+  imports: [CommonModule, IonicModule, DatePipe ]
 })
 export class RecipeDetailsPage implements OnInit {
   recipe: Recipe | undefined;
