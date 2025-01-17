@@ -21,6 +21,7 @@ export class RecipeEditPage implements OnInit {
     description: '',
     ingredients: [],
     steps: [],
+    isFavorite: false
   };
 
   ingredients: string = '';

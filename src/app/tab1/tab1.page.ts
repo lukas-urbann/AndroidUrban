@@ -17,20 +17,36 @@ export class Tab1Page {
 
   ionViewWillEnter() {
     this.recipes = this.recipeService.getRecipes();
-    this.filteredRecipes = [...this.recipes];
+    this.updateFilteredRecipes();
   }
 
   filterRecipes() {
+    this.updateFilteredRecipes();
+  }
+
+  toggleFavorite(recipe: Recipe, event: Event) {
+    event.stopPropagation(); // Tohle by mělo zabránit překlikávání na detail, nevím
+    recipe.isFavorite = !recipe.isFavorite;
+    this.recipeService.updateRecipe(recipe);
+    this.updateFilteredRecipes();
+  }
+
+  private updateFilteredRecipes() {
     const term = this.searchTerm.toLowerCase().trim();
-    if (term === '') {
-      this.filteredRecipes = [...this.recipes];
-    } else {
-      this.filteredRecipes = this.recipes.filter(recipe =>
-        recipe.name.toLowerCase().includes(term) ||
-        recipe.description.toLowerCase().includes(term) || 
-        recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(term))
-      );
-    }
+
+    const filtered = this.recipes.filter(recipe =>
+      recipe.name.toLowerCase().includes(term) ||
+      recipe.description.toLowerCase().includes(term)|| 
+      recipe.ingredients.some(ingredient => ingredient.toLowerCase().includes(term))
+    );
+
+    //jen porovnávání s oblíbenými recepty
+    this.filteredRecipes = filtered.sort((a, b) => {
+      if (a.isFavorite === b.isFavorite) {
+        return 0;
+      }
+      return a.isFavorite ? -1 : 1;
+    });
   }
 
   /*

@@ -19,7 +19,7 @@ export class RecipeService {
   }
 
   getRecipes(): Recipe[] {
-    return [...this.recipes]; // Vrací kopii seznamu receptů
+    return [...this.recipes];
   }
 
   getRecipe(id: string): Recipe | undefined {

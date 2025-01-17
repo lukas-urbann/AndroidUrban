@@ -26,11 +26,16 @@
   <div class="c-separator"></div>
 
   <ion-list style="background-color: transparent; padding-top: 0px;">
-    <ion-card *ngFor="let recipe of filteredRecipes" [routerLink]="['/recipe-details', recipe.id]">
+    <ion-card *ngFor="let recipe of filteredRecipes">
       <div class="c-icon-header">
-        <ion-icon name="star-outline"></ion-icon>
+        <ion-icon
+        name="star-outline"
+        color="warning"
+        [name]="recipe.isFavorite ? 'star' : 'star-outline'"
+        (click)="toggleFavorite(recipe, $event)"
+        ></ion-icon>
       </div>
-      <ion-card-header>
+      <ion-card-header [routerLink]="['/recipe-details', recipe.id]">
         <ion-card-title>{{ recipe.name }}</ion-card-title>
         <ion-card-subtitle>{{ recipe.description }}</ion-card-subtitle>
       </ion-card-header>
