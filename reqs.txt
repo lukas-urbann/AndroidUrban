@@ -3,8 +3,8 @@ Povinné požadavky:
 zdrojové kódy přístupné v nějakém verzovacím systému (GIT) (OK)
 vlastní ikona aplikace, vlastní splashscreen  (asi ?? OK)
 více propojených obrazovek, funkční navigační stack (přechody mezi obrazovkami) (jakoby OK)
-ukládání dat do perzistentní paměti zařízení 
-vstup od uživatele (zadávání dat uživatelem) 
+ukládání dat do perzistentní paměti zařízení (OK)
+vstup od uživatele (zadávání dat uživatelem) (OK)
 
 
 
