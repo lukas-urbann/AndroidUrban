@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -14,7 +15,10 @@ export class Tab3Page {
   ingredients = '';
   steps = '';
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(
+    private recipeService: RecipeService,
+    private router: Router,
+  ) {}
   
   addRecipe() {
     if (this.name && this.description) {
@@ -32,14 +36,11 @@ export class Tab3Page {
       this.description = '';
       this.ingredients = '';
       this.steps = '';
+
+     this.router.navigate(['/tabs/tab1']);
+
     } else {
       alert('Vyplňte všechny potřebné údaje.');
     }
   }
-
-  async trySaveRecipe()
-  {
-
-  }
-
 }

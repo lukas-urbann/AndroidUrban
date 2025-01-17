@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'recipe-details/:id', //:ID PŘEPOSÍLÁ TEN PARAMETR Z TAB1
     loadComponent: () => import('./recipe-details/recipe-details.page').then(m => m.RecipeDetailsPage)
+  },
+  {
+    path: 'recipe-edit/:id',
+    loadComponent: () => import('./recipe-edit/recipe-edit.page').then(m => m.RecipeEditPage)
   }
 ];
 @NgModule({

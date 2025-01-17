@@ -7,11 +7,15 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content *ngIf="recipe">
   <ion-card>
+    <div class="c-icon-header">
+      <ion-icon name="trash" color="danger" (click)="deleteRecipe()"></ion-icon>
+      &nbsp;
+      <ion-icon name="create" color="primary" (click)="editRecipe()"></ion-icon>
+    </div>
     <ion-card-header>
-      <ion-card-title>{{ recipe.name }}</ion-card-title>
+      <ion-card-title style="width: 75%;">{{ recipe.name }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p><strong>Popis:</strong> {{ recipe.description }}</p>
@@ -28,8 +32,4 @@
       </ol>
     </ion-card-content>
   </ion-card>
-
-  <ion-button expand="full" color="primary" (click)="editRecipe()">Upravit recept</ion-button>
-  <ion-button expand="full" color="danger" (click)="deleteRecipe()">Odstranit recept</ion-button>
-
 </ion-content>

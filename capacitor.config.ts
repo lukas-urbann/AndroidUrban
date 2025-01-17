@@ -1,18 +1,18 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'AndroidUrban',
+  appId: 'com.lukasurban.app',
+  appName: 'Lukášův receptář prima nápadů',
   webDir: 'www',
   server: {
     androidScheme: 'https'
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 1000,
+      launchShowDuration: 500,
       launchAutoHide: true,
-      launchFadeOutDuration: 1000,
-      fadeOutDuration: 1000,
+      launchFadeOutDuration: 500,
+      fadeOutDuration: 500,
       backgroundColor: "#ffffffff",
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP",

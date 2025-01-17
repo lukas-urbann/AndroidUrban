@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Úprava Receptu</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Úprava Receptu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <br>
+
+  <div style="width: 95%;margin: auto;">
+
+    <ion-input color="primary" label="Název" label-placement="floating" fill="outline" placeholder="Bramborový nákyp" [(ngModel)]="recipe.name"></ion-input>
+
+    <br>
+
+    <ion-textarea label="Popis" labelPlacement="floating" fill="outline" placeholder="Je to takové a makové..." [autoGrow]="true" [(ngModel)]="recipe.description"></ion-textarea>
+
+    <br>
+
+    <ion-textarea label="Ingredience" label-placement="floating" fill="outline" placeholder="4 vejce,1/2 litrů mléka, Chleba, 6 plátků sýra" [(ngModel)]="ingredients"></ion-textarea>
+
+    <p class="c-label">*Jednotlivé ingredience lze rozdělit pomocí čárek</p>
+
+    <ion-textarea label="Kroky" label-placement="floating" fill="outline" placeholder="Nakrájet cibuli na kostičky, Zalít mlékem, Nechat péct 45 minut" [(ngModel)]="steps"></ion-textarea>
+
+    <p class="c-label">*Jednotlivé kroky lze rozdělit pomocí čárek</p>
+
+    <ion-button expand="block" (click)="saveRecipe()">Uložit změny</ion-button>
+  </div>
+
+  
+
+</ion-content>
