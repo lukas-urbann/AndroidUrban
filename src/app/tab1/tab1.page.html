@@ -27,6 +27,9 @@
 
   <ion-list style="background-color: transparent; padding-top: 0px;">
     <ion-card *ngFor="let recipe of filteredRecipes" [routerLink]="['/recipe-details', recipe.id]">
+      <div class="c-icon-header">
+        <ion-icon name="star-outline"></ion-icon>
+      </div>
       <ion-card-header>
         <ion-card-title>{{ recipe.name }}</ion-card-title>
         <ion-card-subtitle>{{ recipe.description }}</ion-card-subtitle>
@@ -34,7 +37,11 @@
     </ion-card>
   </ion-list>
 
-  <ion-text *ngIf="filteredRecipes.length === 0">
+  <ion-text *ngIf="recipes.length === 0">
+    <p class="c-label">Dosud nebyly vytvořeny žádné recepty.</p>
+  </ion-text>
+
+  <ion-text *ngIf="filteredRecipes.length === 0 && recipes.length > 0">
     <p class="c-label">Žádné recepty nenalezeny.</p>
   </ion-text>
 

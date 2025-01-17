@@ -60,7 +60,7 @@ export class RecipeEditPage implements OnInit {
       this.recipe.steps = this.steps.split(',').map(s => s.trim());
       await this.recipeService.updateRecipe(this.recipe);
       this.router.navigate(['/tabs/tab1']);
-      this.reloadPage();
+      //this.reloadPage();
     }
   }
 }
