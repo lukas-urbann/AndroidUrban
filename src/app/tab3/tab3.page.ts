@@ -32,6 +32,7 @@ export class Tab3Page {
         isFavorite: false,
         createdAt: Date.now(),
         tags: this.tags.split(','),
+        photos: [],
       };
 
       this.recipeService.addRecipe(newRecipe);

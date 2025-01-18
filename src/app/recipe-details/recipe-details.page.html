@@ -60,6 +60,23 @@
         </ol>
       </span>
 
+      <p><strong>Fotky:</strong></p>
+      <ion-grid>
+        <ion-row *ngFor="let photo of recipe.photos; let i = index">
+          <ion-col size="12">
+            <ion-img [src]="photo.imageUrl"></ion-img>
+            <ion-input 
+              [(ngModel)]="photo.caption" 
+              (ionBlur)="updateCaption(i, photo.caption)" 
+              placeholder="Titulek fotky">
+            </ion-input>
+            <ion-button color="danger" (click)="deletePhoto(i)">Odstranit</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-button expand="full" color="secondary" (click)="addPhoto()">Přidat fotku</ion-button>
+
     </ion-card-content>
   </ion-card>
 </ion-content>

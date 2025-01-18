@@ -1,3 +1,7 @@
+export interface RecipePhoto {
+  imageUrl: string; //tady bude pak bordel
+  caption: string;  
+}
 export interface Recipe {
     id: string;
     name: string;
@@ -7,4 +11,5 @@ export interface Recipe {
     isFavorite: boolean;
     createdAt: number;
     tags: string[];
+    photos: RecipePhoto[];
   }

@@ -23,7 +23,8 @@ export class RecipeEditPage implements OnInit {
     steps: [],
     isFavorite: false,
     createdAt: 0,
-    tags: []
+    tags: [],
+    photos: []
   };
 
   ingredients: string = '';
