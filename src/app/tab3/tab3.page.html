@@ -13,11 +13,12 @@
     </ion-toolbar>
   </ion-header>
 
-  <br>
+  <div style="width: 95%; margin: auto;">
 
-  <div style="width: 95%;margin: auto;">
+    <h2 class="c-header">Vytvořit recept: </h2>
+    <p class="c-label">*Pole s hvězdičkami jsou povinná</p>
 
-    <ion-input color="primary" label="Název" label-placement="floating" fill="solid" placeholder="Bramborový nákyp" [(ngModel)]="name" required></ion-input>
+    <ion-input color="primary" label="*Název" label-placement="floating" fill="solid" placeholder="Bramborový nákyp" [(ngModel)]="name" required></ion-input>
 
     <br>
 
@@ -25,7 +26,7 @@
 
     <br>
 
-    <ion-textarea label="Popis" labelPlacement="floating" fill="solid" placeholder="Je to takové a makové..." [autoGrow]="true" [(ngModel)]="description" required></ion-textarea>
+    <ion-textarea label="*Popis" labelPlacement="floating" fill="solid" placeholder="Je to takové a makové..." [autoGrow]="true" [(ngModel)]="description" required></ion-textarea>
 
     <br>
 
@@ -38,5 +39,26 @@
     <p class="c-label">*Jednotlivé kroky lze rozdělit pomocí čárek</p>
 
     <ion-button expand="block" (click)="addRecipe()">Přidat Recept</ion-button>
+    <p class="c-label">*Po vytvoření receptu k němu lze přidat i obrázky</p>
   </div>
+
+  <div class="c-separator"></div>
+  <br>
+
+  <div style="width: 95%; margin: auto;">
+
+    <h2 class="c-header">Nahrát recept: </h2>
+
+    <br>
+
+    <ion-textarea label="*Kód receptu" [autoGrow]="true" label-placement="floating" fill="solid" placeholder="Sem vložte kód receptu" [(ngModel)]="recipeCode"></ion-textarea>
+
+    <br>
+
+    <ion-button expand="full" (click)="importRecipe()">Nahrát recept</ion-button>
+
+  </div>
+
+  <br>
+
 </ion-content>

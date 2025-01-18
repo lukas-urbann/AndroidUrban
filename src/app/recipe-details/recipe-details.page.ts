@@ -3,9 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RecipeService } from '../services/recipe.service';
-import { Recipe, RecipePhoto } from '../models/recipe.model';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Recipe } from '../models/recipe.model';
 import { FormsModule } from '@angular/forms';
+import { Share } from '@capacitor/share';
+import { Clipboard } from '@capacitor/clipboard';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-recipe-details',
@@ -34,33 +36,110 @@ export class RecipeDetailsPage implements OnInit {
     }
   }
 
-  async addPhoto() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera,
+  async generateShareText() {
+    const recipeData = JSON.stringify(this.recipe);
+    const encodedData = this.encodeToBase64(recipeData);
+    return encodedData;
+  }
+
+  async generateShareTextNoPhoto() {
+    const recipeCopy = JSON.parse(JSON.stringify(this.recipe));
+    recipeCopy.photos = [];
+    const recipeData = JSON.stringify(recipeCopy);
+    const encodedData = this.encodeToBase64(recipeData);
+    return encodedData;
+  }
+
+  async shareRecipeClipboard() {
+    if (!this.recipe)
+    {
+      alert('Neplatný recept!');
+      return;
+    }
+
+    const shareText = await this.generateShareTextNoPhoto();
+
+    await Clipboard.write({
+      string: shareText,
     });
 
-    const newPhoto: RecipePhoto = {
-      imageUrl: image.dataUrl || '', // Base64
-      caption: '', // caption k tomu
-    };
-
-    this.recipe?.photos.push(newPhoto);
-    this.recipeService.updateRecipe(this.recipe!);
+    alert('Recept byl zkopírován do schránky!');
   }
 
-  deletePhoto(index: number) {
-    this.recipe?.photos.splice(index, 1); //delete
-    this.recipeService.updateRecipe(this.recipe!);
+  async shareRecipeNative() {
+    if (!this.recipe)
+      {
+        alert('Neplatný recept!');
+        return;
+      }
+
+      const shareText = await this.generateShareTextNoPhoto();
+
+      await Share.share({
+        title: 'Sdílení receptu',
+        text: shareText,
+        dialogTitle: 'Sdílet přes...',
+      });
   }
 
-  updateCaption(index: number, newCaption: string) {
-    if (this.recipe?.photos[index]) {
-      this.recipe.photos[index].caption = newCaption;
-      this.recipeService.updateRecipe(this.recipe!);
-    }
+  async shareRecipeFile() {
+    if (!this.recipe)
+      {
+        alert('Neplatný recept!');
+        return;
+      }
+
+      let saveText = '';
+
+      const confirm = window.confirm('Má se recept uložit jako importovatelný soubor?');
+      if (confirm) {
+        saveText = await this.generateShareText();
+      } else {
+        /*
+        saveText = `
+        Recept: ${this.recipe.name}
+        
+        Popis:
+        ${this.recipe.description}
+        
+        Ingredience:
+        ${this.recipe.ingredients.join('\n')}
+        
+        Kroky přípravy:
+        ${this.recipe.steps.join('\n')}
+        
+        Tagy:
+        ${this.recipe.tags.join(', ')}
+        
+        Fotky:
+        ${this.recipe.photos.map((photo, index) => `Fotka ${index + 1}: ${photo.caption}`).join('\n')}
+          `;
+          */
+        return;
+      }
+
+      const fileName = `${this.recipe.name}.txt`;
+      const result = await Filesystem.writeFile({
+        path: fileName,
+        data: saveText,
+        directory: Directory.Documents,
+        encoding: Encoding.UTF8,
+      });
+
+      console.log('Soubor uložen: ', result.uri);
+
+      await Share.share({
+        title: `Recept pro ${this.recipe.name}`,
+        text: `Sdílení importovatelného receptu: ${this.recipe.name}`,
+        url: result.uri,
+        dialogTitle: 'Sdílet recept',
+      });
+    
+      alert('Recept byl uložen jako importovatelný soubor!');
+  }
+
+  encodeToBase64(data: string): string {
+    return btoa(encodeURIComponent(data));
   }
 
   async deleteRecipe() {

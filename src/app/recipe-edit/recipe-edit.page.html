@@ -38,7 +38,32 @@
 
     <p class="c-label">*Jednotlivé kroky lze rozdělit pomocí čárek</p>
 
+    <span *ngIf="recipe.photos.length > 0">
+      <div class="c-separator"></div>
+      <h2 class="c-header">Nahrané fotografie:</h2>
+    </span>
+    
+    <ion-grid>
+      <ion-row *ngFor="let photo of recipe.photos; let i = index">
+        <ion-col size="12">
+          <ion-img [src]="photo.imageUrl" (click)="deletePhoto(i)"></ion-img>
+          <br>
+          <ion-input 
+            color="primary"
+            label-placement="floating"
+            label="Titulek"
+            fill="solid"
+            [(ngModel)]="photo.caption" 
+            (ionBlur)="updateCaption(i, photo.caption)">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-button expand="block" color="secondary" (click)="addPhoto()">Přidat fotku</ion-button>
+    <br>
     <ion-button expand="block" (click)="saveRecipe()">Uložit změny</ion-button>
+    <br>
   </div>
 
   

@@ -15,6 +15,11 @@ export class Tab1Page {
 
   constructor(private recipeService: RecipeService) {}
 
+  voidClick()
+  {
+    
+  }
+
   ionViewWillEnter() {
     this.recipes = this.recipeService.getRecipes();
     this.updateFilteredRecipes();

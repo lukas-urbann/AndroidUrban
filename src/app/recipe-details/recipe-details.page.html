@@ -10,9 +10,15 @@
 <ion-content *ngIf="recipe">
   <ion-card>
     <div class="c-icon-header">
-      <ion-icon name="trash" color="danger" (click)="deleteRecipe()"></ion-icon>
+      <ion-icon name="trash-outline" (click)="deleteRecipe()"></ion-icon>
       &nbsp;
-      <ion-icon name="create" color="primary" (click)="editRecipe()"></ion-icon>
+      <ion-icon name="create-outline" (click)="editRecipe()"></ion-icon>
+      &nbsp;
+      <ion-icon name="download-outline" (click)="shareRecipeFile()"></ion-icon>
+      &nbsp;
+      <ion-icon name="clipboard-outline" (click)="shareRecipeClipboard()"></ion-icon>
+      &nbsp;
+      <ion-icon name="share-outline" (click)="shareRecipeNative()"></ion-icon>
     </div>
     <ion-card-header>
       <ion-card-title style="width: 65%;">{{ recipe.name }}</ion-card-title>
@@ -60,22 +66,22 @@
         </ol>
       </span>
 
-      <p><strong>Fotky:</strong></p>
-      <ion-grid>
-        <ion-row *ngFor="let photo of recipe.photos; let i = index">
-          <ion-col size="12">
-            <ion-img [src]="photo.imageUrl"></ion-img>
-            <ion-input 
-              [(ngModel)]="photo.caption" 
-              (ionBlur)="updateCaption(i, photo.caption)" 
-              placeholder="Titulek fotky">
-            </ion-input>
-            <ion-button color="danger" (click)="deletePhoto(i)">Odstranit</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <!-- <ion-button expand="full" color="tertiary" (click)="shareRecipe()">Sdílet recept</ion-button> -->
 
-      <ion-button expand="full" color="secondary" (click)="addPhoto()">Přidat fotku</ion-button>
+      <span *ngIf="
+      recipe.photos.length > 0
+      ">
+        <div class="c-separator"></div>
+        <p><strong>Fotky:</strong></p>
+        <ion-grid>
+          <ion-row *ngFor="let photo of recipe.photos; let i = index">
+            <ion-col size="12">
+              <ion-img [src]="photo.imageUrl"></ion-img>
+              <ion-label><i>{{ photo.caption }}</i></ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </span>
 
     </ion-card-content>
   </ion-card>

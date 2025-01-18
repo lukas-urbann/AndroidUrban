@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: false,
 })
 export class Tab3Page {
+  recipeCode: string = ''; // Uloží vstup od uživatele
   name = '';
   description = '';
   ingredients = '';
@@ -20,6 +21,33 @@ export class Tab3Page {
     private recipeService: RecipeService,
     private router: Router,
   ) {}
+
+  ionViewWillEnter() {
+    this.recipeCode = '';
+    this.name = '';
+    this.description = '';
+    this.ingredients = '';
+    this.steps = '';
+    this.tags = '';
+  }
+
+  importRecipe() {
+    try {
+      const decodedData = decodeURIComponent(atob(this.recipeCode));
+      const importedRecipe: Recipe = JSON.parse(decodedData);
+
+      importedRecipe.name = importedRecipe.name + ' (importováno)';
+      importedRecipe.id = Date.now().toString();
+      importedRecipe.createdAt = Date.now();
+      importedRecipe.isFavorite = false;
+
+      this.recipeService.addRecipe(importedRecipe);
+      alert('Recept byl úspěšně importován!');
+      this.recipeCode = '';
+    } catch (error) {
+      alert('Kód receptu je neplatný!');
+    }
+  }
   
   addRecipe() {
     if (this.name && this.description) {
