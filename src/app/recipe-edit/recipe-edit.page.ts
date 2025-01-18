@@ -22,11 +22,13 @@ export class RecipeEditPage implements OnInit {
     ingredients: [],
     steps: [],
     isFavorite: false,
-    createdAt: 0
+    createdAt: 0,
+    tags: []
   };
 
   ingredients: string = '';
   steps: string = '';
+  tags: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +44,7 @@ export class RecipeEditPage implements OnInit {
       this.recipe = { ...loadedRecipe }; // Přepiš hodnoty receptu
       this.ingredients = this.recipe.ingredients.join(', ');
       this.steps = this.recipe.steps.join(', ');
+      this.tags = this.recipe.tags.join(', ');
     }
   }
   }
@@ -60,6 +63,7 @@ export class RecipeEditPage implements OnInit {
     if (this.recipe) {
       this.recipe.ingredients = this.ingredients.split(',').map(i => i.trim());
       this.recipe.steps = this.steps.split(',').map(s => s.trim());
+      this.recipe.tags = this.tags.split(',').map(tag => tag.trim());
       await this.recipeService.updateRecipe(this.recipe);
       this.router.navigate(['/tabs/tab1']);
       //this.reloadPage();

@@ -6,4 +6,5 @@ export interface Recipe {
     steps: string[];
     isFavorite: boolean;
     createdAt: number;
+    tags: string[];
   }

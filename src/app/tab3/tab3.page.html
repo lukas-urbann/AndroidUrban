@@ -17,19 +17,23 @@
 
   <div style="width: 95%;margin: auto;">
 
-    <ion-input color="primary" label="Název" label-placement="floating" fill="outline" placeholder="Bramborový nákyp" [(ngModel)]="name" required></ion-input>
+    <ion-input color="primary" label="Název" label-placement="floating" fill="solid" placeholder="Bramborový nákyp" [(ngModel)]="name" required></ion-input>
 
     <br>
 
-    <ion-textarea label="Popis" labelPlacement="floating" fill="outline" placeholder="Je to takové a makové..." [autoGrow]="true" [(ngModel)]="description" required></ion-textarea>
+    <ion-input color="primary" label="Štítky" label-placement="floating" fill="solid" placeholder="Vejce, Mléko, Pečivo," [(ngModel)]="tags"></ion-input>
 
     <br>
 
-    <ion-textarea label="Ingredience" label-placement="floating" fill="outline" placeholder="4 vejce,1/2 litrů mléka, Chleba, 6 plátků sýra" [(ngModel)]="ingredients" required></ion-textarea>
+    <ion-textarea label="Popis" labelPlacement="floating" fill="solid" placeholder="Je to takové a makové..." [autoGrow]="true" [(ngModel)]="description" required></ion-textarea>
+
+    <br>
+
+    <ion-textarea label="Ingredience" label-placement="floating" fill="solid" placeholder="4 vejce,1/2 litrů mléka, Chleba, 6 plátků sýra" [(ngModel)]="ingredients"></ion-textarea>
 
     <p class="c-label">*Jednotlivé ingredience lze rozdělit pomocí čárek</p>
 
-    <ion-textarea label="Kroky" label-placement="floating" fill="outline" placeholder="Nakrájet cibuli na kostičky, Zalít mlékem, Nechat péct 45 minut" [(ngModel)]="steps" required></ion-textarea>
+    <ion-textarea label="Kroky" label-placement="floating" fill="solid" placeholder="Nakrájet cibuli na kostičky, Zalít mlékem, Nechat péct 45 minut" [(ngModel)]="steps"></ion-textarea>
 
     <p class="c-label">*Jednotlivé kroky lze rozdělit pomocí čárek</p>
 

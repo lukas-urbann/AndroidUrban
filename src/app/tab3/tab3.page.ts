@@ -14,6 +14,7 @@ export class Tab3Page {
   description = '';
   ingredients = '';
   steps = '';
+  tags = '';
 
   constructor(
     private recipeService: RecipeService,
@@ -30,6 +31,7 @@ export class Tab3Page {
         steps: this.steps.split(','),
         isFavorite: false,
         createdAt: Date.now(),
+        tags: this.tags.split(','),
       };
 
       this.recipeService.addRecipe(newRecipe);
@@ -38,6 +40,8 @@ export class Tab3Page {
       this.description = '';
       this.ingredients = '';
       this.steps = '';
+      this.tags = '';
+
 
      this.router.navigate(['/tabs/tab1']);
 

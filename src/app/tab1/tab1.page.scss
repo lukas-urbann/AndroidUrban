@@ -1,6 +1,7 @@
 .c-separator {
     margin: auto;
-    width: 95%;
+    margin-left: 12px;
+    margin-right: 12px;
     height: 1px;
     background-color: gray;
     margin-top: 8px;
@@ -27,3 +28,9 @@
     padding: 16px;
     z-index: 15;
 };
+
+.c-icon-header ion-icon:hover {
+    background-color: var(--ion-color-primary);
+    border-radius: 15%;
+    cursor: pointer;
+}

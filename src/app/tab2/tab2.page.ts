@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
+import { RecipeService } from '../services/recipe.service';
+import { Recipe } from '../models/recipe.model';
 
 @Component({
   selector: 'app-tab2',
@@ -8,19 +9,41 @@ import { Storage } from '@ionic/storage-angular';
   standalone: false,
 })
 export class Tab2Page {
-  savedData: string | null = null;
+  tags: string[] = [];
+  selectedTags: string[] = [];
+  filteredRecipes: Recipe[] = [];
 
-  constructor(private storage: Storage) {}
+  constructor(private recipeService: RecipeService) {}
 
-  async ionViewWillEnter() {
-    await this.storage.create(); // Tuhle opět uložiště
+  ionViewWillEnter() {
+    const recipes = this.recipeService.getRecipes();
+    this.tags = Array.from(new Set(recipes.flatMap(recipe => recipe.tags))); // Odstranění duplikátů
+    
+    const index = this.tags.indexOf(''); //ať tam není prázdný tag
+    if (index !== -1) {
+      this.tags.splice(index, 1);
+    }
+
+    this.filteredRecipes = [...recipes]; 
   }
 
-  async loadData() {
-    const data = await this.storage.get('myData');
-    this.savedData = data;
-    if (!data) {
-      alert('Žádná data nejsou uložená.');
+  toggleTag(tag: string) {
+    if (this.selectedTags.includes(tag)) {
+      this.selectedTags = this.selectedTags.filter(t => t !== tag);
+    } else {
+      this.selectedTags.push(tag);
+    }
+    this.filterRecipes();
+  }
+
+  filterRecipes() {
+    const recipes = this.recipeService.getRecipes();
+    if (this.selectedTags.length === 0) {
+      this.filteredRecipes = [...recipes];
+    } else {
+      this.filteredRecipes = recipes.filter(recipe =>
+        recipe.tags.some(tag => this.selectedTags.includes(tag))
+      );
     }
   }
 }

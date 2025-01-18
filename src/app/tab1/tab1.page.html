@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Existující</ion-title>
+      <ion-title size="large">Existující Recepty</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -26,7 +26,7 @@
   <div class="c-separator"></div>
 
   <ion-list style="background-color: transparent; padding-top: 0px;">
-    <ion-card *ngFor="let recipe of filteredRecipes">
+    <ion-card *ngFor="let recipe of filteredRecipes" [routerLink]="['/recipe-details', recipe.id]">
       <div class="c-icon-header">
         <ion-icon
         name="star-outline"
@@ -35,7 +35,7 @@
         (click)="toggleFavorite(recipe, $event)"
         ></ion-icon>
       </div>
-      <ion-card-header [routerLink]="['/recipe-details', recipe.id]">
+      <ion-card-header>
         <ion-card-title>{{ recipe.name }}</ion-card-title>
         <ion-card-subtitle>{{ recipe.description }}</ion-card-subtitle>
       </ion-card-header>
