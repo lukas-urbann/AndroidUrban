@@ -163,6 +163,12 @@ export class RecipeDetailsPage implements OnInit {
       alert('Recept byl uložen jako importovatelný soubor!');
   }
 
+  reloadPage() {
+    setTimeout(()=>{
+      window.location.reload();
+    }, 100);
+  }
+
   encodeToBase64(data: string): string {
     return btoa(encodeURIComponent(data));
   }
@@ -173,6 +179,7 @@ export class RecipeDetailsPage implements OnInit {
       if (confirm) {
         await this.recipeService.deleteRecipe(this.recipe.id);
         this.router.navigate(['/tabs/tab1']);
+        this.reloadPage();
       }
     }
   }
