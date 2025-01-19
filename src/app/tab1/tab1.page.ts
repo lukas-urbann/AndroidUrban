@@ -18,7 +18,6 @@ export class Tab1Page {
   ionViewWillEnter() {
     this.recipes = this.recipeService.getRecipes();
     this.filterRecipes();
-    console.log("ahojda");
   }
 
   filterRecipes() {
