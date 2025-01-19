@@ -10,6 +10,8 @@
 <ion-content *ngIf="recipe">
   <ion-card>
     <div class="c-icon-header">
+      <ion-icon *ngIf="isDevMode" name="rocket" (click)="downloadDev()"></ion-icon>
+      &nbsp;
       <ion-icon name="trash-outline" (click)="deleteRecipe()"></ion-icon>
       &nbsp;
       <ion-icon name="create-outline" (click)="editRecipe()"></ion-icon>
@@ -25,6 +27,11 @@
       <ion-card-subtitle *ngIf="recipe.createdAt" style="font-size: 10.5px;">Vytvořeno: {{ recipe.createdAt | date: 'd.MM.yyyy, HH:mm' }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
+
+      <!-- Time -->
+      <span *ngIf="recipe.prepareTime">
+        <p><strong>Čas přípravy:</strong> {{ recipe.prepareTime }}</p>
+      </span>
 
       <!-- Tagy -->
       <span *ngIf="recipe.tags.length > 0 && recipe.tags[0] !== ''"> <!-- jen check pro prázdný tag -->

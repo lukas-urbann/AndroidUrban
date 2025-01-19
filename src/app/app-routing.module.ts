@@ -4,7 +4,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    data: { reuse: false },
   },
   {
     path: 'recipe-details/:id', //:ID PŘEPOSÍLÁ TEN PARAMETR Z TAB1

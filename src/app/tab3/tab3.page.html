@@ -22,6 +22,14 @@
 
     <br>
 
+    <ion-select aria-label="Doba přípravy" placeholder="Doba přípravy" label="Doba přípravy" label-placement="floating" fill="solid" [multiple]="false" [(ngModel)]="prepareTime" [value]="null">
+      <ion-select-option *ngFor="let option of prepareTimeOptions" [value]="option">
+        {{ option }}
+      </ion-select-option>
+    </ion-select>
+
+    <br>
+
     <ion-input color="primary" label="Štítky" label-placement="floating" fill="solid" placeholder="Vejce, Mléko, Pečivo," [(ngModel)]="tags"></ion-input>
 
     <br>
@@ -56,6 +64,15 @@
     <br>
 
     <ion-button expand="full" (click)="importRecipe()">Nahrát recept</ion-button>
+    <br>
+
+    <ion-button expand="full" color="secondary">
+      <span style="width: 100%;height: 100%;z-index: 1;">
+        <input type="file" (change)="onFileSelected($event)" accept=".txt" style="width: 100%; height: 100%; opacity: 0;"/>
+      </span>
+      <span style="width: 100%;position: absolute;z-index: 0;">Nahrát recept pomocí .txt</span>
+    </ion-button>
+    
 
   </div>
 

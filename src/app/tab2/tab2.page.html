@@ -13,41 +13,44 @@
     </ion-toolbar>
   </ion-header>
 
-  <!--
-  <ion-button expand="full" (click)="loadData()">Načíst data</ion-button>
-
-  <ion-card *ngIf="savedData">
-    <ion-card-header>
-      <ion-card-title>Uložená data</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      {{ savedData }}
-    </ion-card-content>
-  </ion-card>
-  -->
-
-  
-  <ion-card>
-    <ion-card-content>
-      <ion-chip *ngFor="let tag of tags"
-        (click)="toggleTag(tag)"
-        [color]="selectedTags.includes(tag) ? 'primary' : 'medium'">
-        <ion-label style="font-size: 16px;">{{ tag }}</ion-label>
-      </ion-chip>
-    </ion-card-content>
-  </ion-card>
-
-  <div class="c-separator"></div>
-  <h2 class="c-header">Filtrované recepty:</h2>
-
-  <ion-list style="background-color: transparent; padding-top: 0px;">
-    <ion-card *ngFor="let recipe of filteredRecipes" [routerLink]="['/recipe-details', recipe.id]">
-      <ion-card-header>
-        <ion-card-title>{{ recipe.name }}</ion-card-title>
-        <ion-card-subtitle>{{ recipe.description }}</ion-card-subtitle>
-      </ion-card-header>
+  <span *ngIf="recipeCount != 0">
+    <ion-card>
+      <ion-card-content>
+        <ion-chip *ngFor="let tag of tags"
+          (click)="toggleTag(tag)"
+          [color]="selectedTags.includes(tag) ? 'primary' : 'medium'">
+          <ion-label style="font-size: 16px;">{{ tag }}</ion-label>
+        </ion-chip>
+      </ion-card-content>
     </ion-card>
-  </ion-list>
+  
+    <div class="c-separator"></div>
+    <h2 class="c-header">Filtrované recepty:</h2>
+  
+    <span *ngIf="filteredRecipes.length > 0">
+      <ion-list style="background-color: transparent; padding-top: 0px;">
+        <ion-card *ngFor="let recipe of filteredRecipes" [routerLink]="['/recipe-details', recipe.id]">
+          <ion-card-header>
+            <ion-card-title>{{ recipe.name }}</ion-card-title>
+            <ion-card-subtitle>{{ recipe.description }}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-list>
+    </span>
+
+    <span *ngIf="filteredRecipes.length === 0">
+      <br>
+      <p class="c-label">Nebyly nalezeny žádné recepty odpovídající zvoleným kritériím.</p>
+    </span>
+    
+    
+  </span>
+
+  <span *ngIf="recipeCount === 0">
+    <br>
+    <p class="c-label">Dosud nebyly vytvořeny žádné recepty.</p>
+  </span>
+  
 
   
 

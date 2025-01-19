@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -18,6 +18,7 @@ import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
   imports: [CommonModule, IonicModule, DatePipe, FormsModule ]
 })
 export class RecipeDetailsPage implements OnInit {
+  isDevMode: boolean = false;
   recipe: Recipe | undefined;
 
   constructor(
@@ -26,7 +27,12 @@ export class RecipeDetailsPage implements OnInit {
     private recipeService: RecipeService
   ) { }
 
+  ionViewWillEnter() {
+    this.ngOnInit();
+  }
+
   ngOnInit() {
+    this.isDevMode = isDevMode();
     const recipeId = this.route.snapshot.paramMap.get('id'); // TOHLE SEŽERE TEN PARAMETR Z URL
     if (recipeId) {
       this.recipe = this.recipeService.getRecipe(recipeId);
@@ -35,6 +41,25 @@ export class RecipeDetailsPage implements OnInit {
       }
     }
   }
+
+  async downloadDev() {
+    if (!this.recipe)
+      {
+        alert('Neplatný recept!');
+        return;
+      }
+
+      const shareText = await this.generateShareText();
+
+      const blob = new Blob([shareText], { type: 'text/plain' });
+
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `${this.recipe.name}.txt`;
+      link.click();
+
+      URL.revokeObjectURL(link.href);
+  }      
 
   async generateShareText() {
     const recipeData = JSON.stringify(this.recipe);
@@ -148,15 +173,8 @@ export class RecipeDetailsPage implements OnInit {
       if (confirm) {
         await this.recipeService.deleteRecipe(this.recipe.id);
         this.router.navigate(['/tabs/tab1']);
-        this.reloadPage();
       }
     }
-  }
-
-  reloadPage() {
-    setTimeout(()=>{
-      window.location.reload();
-    }, 100);
   }
 
   editRecipe() {

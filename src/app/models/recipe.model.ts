@@ -1,9 +1,9 @@
-enum PrepareTime {
-  None = 0,
-  Low = 1,
-  Medium = 2,
-  High = 3,
-  VeryHigh = 4
+export enum PrepareTime {
+  None = 'Není určeno',
+  Short = 'Krátká (do 30 minut)',
+  Medium = 'Střední (30-60 minut)',
+  Long = 'Dlouhá (1-2 hodiny)',
+  VeryLong = 'Velmi dlouhá (více než 2 hodiny)',
 }
 
 export interface RecipePhoto {
@@ -20,5 +20,7 @@ export interface Recipe {
     isFavorite: boolean;
     createdAt: number;
     tags: string[];
+    prepareTime: PrepareTime;
     photos: RecipePhoto[];
+    defaultPortions: number;
   }

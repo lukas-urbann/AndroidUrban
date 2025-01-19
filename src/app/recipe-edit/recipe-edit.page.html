@@ -22,6 +22,14 @@
 
     <br>
 
+    <ion-select aria-label="Doba přípravy" placeholder="Doba přípravy" label="Doba přípravy" label-placement="floating" fill="solid" [multiple]="false" [(ngModel)]="recipe.prepareTime" [value]="null">
+      <ion-select-option *ngFor="let option of prepareTimeOptions" [value]="option">
+        {{ option }}
+      </ion-select-option>
+    </ion-select>
+
+    <br>
+
     <ion-input color="primary" label="Štítky" label-placement="floating" fill="solid" placeholder="Vejce, Mléko, Pečivo," [(ngModel)]="tags"></ion-input>
 
     <br>
@@ -60,7 +68,17 @@
       </ion-row>
     </ion-grid>
 
-    <ion-button expand="block" color="secondary" (click)="addPhoto()">Přidat fotku</ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button expand="block" color="secondary" (click)="addPhoto(false)">Vyfotit fotku</ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="block" color="secondary" (click)="addPhoto(true)">Vybrat fotku</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
     <br>
     <ion-button expand="block" (click)="saveRecipe()">Uložit změny</ion-button>
     <br>

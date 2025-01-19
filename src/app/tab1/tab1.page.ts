@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component  } from '@angular/core';
 import { RecipeService } from '../services/recipe.service';
 import { Recipe } from '../models/recipe.model';
 
@@ -15,14 +15,10 @@ export class Tab1Page {
 
   constructor(private recipeService: RecipeService) {}
 
-  voidClick()
-  {
-    
-  }
-
   ionViewWillEnter() {
     this.recipes = this.recipeService.getRecipes();
-    this.updateFilteredRecipes();
+    this.filterRecipes();
+    console.log("ahojda");
   }
 
   filterRecipes() {

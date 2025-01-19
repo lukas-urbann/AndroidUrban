@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
-import { Recipe, RecipePhoto } from '../models/recipe.model';
+import { Recipe, RecipePhoto, PrepareTime } from '../models/recipe.model';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +16,8 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   imports: [CommonModule, IonicModule, FormsModule]
 })
 export class RecipeEditPage implements OnInit {
+  prepareTimeOptions = Object.values(PrepareTime);
+
   recipe: Recipe = {
     id: '',
     name: '',
@@ -25,7 +27,9 @@ export class RecipeEditPage implements OnInit {
     isFavorite: false,
     createdAt: 0,
     tags: [],
-    photos: []
+    photos: [],
+    prepareTime: PrepareTime.None,
+    defaultPortions: 0,
   };
 
   ingredients: string = '';
@@ -51,12 +55,6 @@ export class RecipeEditPage implements OnInit {
   }
   }
 
-  reloadPage() {
-    setTimeout(()=>{
-      window.location.reload();
-    }, 100);
-  }
-
   async saveRecipe() {
     if (!this.recipe?.name.trim() || !this.recipe?.description.trim()) {
       alert('Název a popis receptu jsou povinné!');
@@ -68,7 +66,6 @@ export class RecipeEditPage implements OnInit {
       this.recipe.tags = this.tags.split(',').map(tag => tag.trim());
       await this.recipeService.updateRecipe(this.recipe);
       this.router.navigate(['/recipe-details', this.recipe.id]);
-      //this.reloadPage();
     }
   }
 
@@ -79,22 +76,23 @@ export class RecipeEditPage implements OnInit {
     }
   }
 
-  async addPhoto() {
+  async addPhoto(fromGallery: boolean = false) {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera,
+      source: fromGallery ? CameraSource.Photos : CameraSource.Camera, // zdroj fotky
     });
 
     const newPhoto: RecipePhoto = {
-      imageUrl: image.dataUrl || '', // Base64
-      caption: '', // caption k tomu
+      imageUrl: image.dataUrl || '', // Base64 
+      caption: '',
     };
 
     this.recipe?.photos.push(newPhoto);
-    this.recipeService.updateRecipe(this.recipe!);
+    this.recipeService.updateRecipe(this.recipe!); // save
   }
+  
 
   deletePhoto(index: number) {
     const confirm = window.confirm('Přejete si zvolený obrázek odebrat?');

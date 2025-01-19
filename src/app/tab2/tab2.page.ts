@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RecipeService } from '../services/recipe.service';
-import { Recipe } from '../models/recipe.model';
+import { Recipe, PrepareTime } from '../models/recipe.model';
 
 @Component({
   selector: 'app-tab2',
@@ -9,6 +9,7 @@ import { Recipe } from '../models/recipe.model';
   standalone: false,
 })
 export class Tab2Page {
+  recipeCount = this.recipeService.getRecipes().length;
   tags: string[] = [];
   selectedTags: string[] = [];
   filteredRecipes: Recipe[] = [];
@@ -16,14 +17,22 @@ export class Tab2Page {
   constructor(private recipeService: RecipeService) {}
 
   ionViewWillEnter() {
+    this.recipeCount = this.recipeService.getRecipes().length;
     const recipes = this.recipeService.getRecipes();
-    this.tags = Array.from(new Set(recipes.flatMap(recipe => recipe.tags))); // Odstranění duplikátů
-    
+
+    const specialTags = [
+      'Oblíbené',
+      ...Object.values(PrepareTime), // Přidání časů přípravy jako tagy
+    ];
+
+    const recipeTags = Array.from(new Set(recipes.flatMap(recipe => recipe.tags)));
+
     const index = this.tags.indexOf(''); //ať tam není prázdný tag
     if (index !== -1) {
       this.tags.splice(index, 1);
     }
 
+    this.tags = [...specialTags, ...recipeTags];
     this.filteredRecipes = [...recipes]; 
   }
 
@@ -36,14 +45,24 @@ export class Tab2Page {
     this.filterRecipes();
   }
 
+  //ABSOLUTNÍ PEKLO, NEŠAHAT DO TOHO HLAVNĚ
   filterRecipes() {
     const recipes = this.recipeService.getRecipes();
-    if (this.selectedTags.length === 0) {
-      this.filteredRecipes = [...recipes];
-    } else {
-      this.filteredRecipes = recipes.filter(recipe =>
-        recipe.tags.some(tag => this.selectedTags.includes(tag))
-      );
+  
+    const filterByTags = this.selectedTags.filter(tag => !Object.values(PrepareTime).toString().includes(tag) && tag !== 'Oblíbené');
+    let filteredRecipes = filterByTags.length > 0
+      ? recipes.filter(recipe => recipe.tags.some(tag => filterByTags.includes(tag)))
+      : recipes;
+  
+    const filterByPrepareTime = this.selectedTags.filter(tag => Object.values(PrepareTime).toString().includes(tag));
+    filteredRecipes = filterByPrepareTime.length > 0
+      ? filteredRecipes.filter(recipe => filterByPrepareTime.includes(recipe.prepareTime))
+      : filteredRecipes;
+  
+    if (this.selectedTags.includes('Oblíbené')) {
+      filteredRecipes = filteredRecipes.filter(recipe => recipe.isFavorite);
     }
+  
+    this.filteredRecipes = filteredRecipes;
   }
 }
