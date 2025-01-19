@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class Tab3Page {
   prepareTimeOptions = Object.values(PrepareTime);
 
-  recipeCode: string = ''; // Uloží vstup od uživatele
+  recipeCode: string = ''; // data nového receptu
   name = '';
   description = '';
   ingredients = '';

@@ -13,7 +13,7 @@ export class RecipeService {
   }
 
   async init() {
-    await this.storage.create(); // Inicializace úložiště
+    await this.storage.create();
     const storedRecipes = await this.storage.get('recipes');
     this.recipes = storedRecipes ? JSON.parse(storedRecipes) : [];
   }
@@ -28,7 +28,7 @@ export class RecipeService {
 
   async addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
-    await this.storage.set('recipes', JSON.stringify(this.recipes)); // Uloží do úložiště
+    await this.storage.set('recipes', JSON.stringify(this.recipes)); // Uloží do storage
   }
 
   async updateRecipe(updatedRecipe: Recipe) {
